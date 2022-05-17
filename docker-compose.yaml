@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  devbox:
+    image: "healthsamurai/devbox:edge"
+    depends_on:
+      - devbox-db
+    links:
+      - "devbox-db:database"
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./config:/var/config:cached
+  devbox-healthcheck:
+    image: curlimages/curl
+    entrypoint: /bin/sleep 10000
+    links:
+      - devbox
+    depends_on:
+      - devbox
+    healthcheck:
+      test: curl --fail http://devbox:8080/__healthcheck || exit 1
+      interval: 1s
+      timeout: 20s
+      retries: 100
+  devbox-db:
+    image: "healthsamurai/aidboxdb:13.2"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: devbox
