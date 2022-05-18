@@ -1,4 +1,13 @@
 {ns sdc-box
  import #{aidbox.rest}
 
+ box
+ {:zen/tags #{aidbox/system}
+  :zen/desc "test server"
+  :services {:seed-fixtures seed-fixtures}}
+
+ seed-fixtures
+ {:zen/tags  #{aidbox/service}
+  :engine    aidbox/seed
+  :resources {:Client {:SPA {:grant_types ["password"]}}}}
 }

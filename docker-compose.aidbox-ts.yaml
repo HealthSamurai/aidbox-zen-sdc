@@ -11,4 +11,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ./aidbox.ts:/tmp/aidbox.ts
+      - ./frontend/src/contrib/aidbox.ts:/tmp/aidbox.ts

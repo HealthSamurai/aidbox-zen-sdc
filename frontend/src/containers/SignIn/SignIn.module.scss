@@ -1,0 +1,68 @@
+@import 'src/styles/colors';
+
+$container-height: calc(100vh - 64px);
+
+.wrapper {
+    width: 100%;
+    height: $container-height;
+    background-color: $bg_blue_dark;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.formWrapper {
+    @extend .center;
+    display: flex;
+    width: 360px;
+    height: 312px;
+    flex-direction: column;
+    background-color: $white;
+    border: 1px solid #d6e4ff;
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 28px 35px;
+}
+
+.pleaseLogIn {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.credentials {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.loginButton {
+    width: 100%;
+}
+
+.loginButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.loginIcon {
+    padding-top: 2px;
+}
+
+.loginText {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.bgImage {
+    float: right;
+    height: $container-height;
+}
