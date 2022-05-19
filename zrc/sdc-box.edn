@@ -1,5 +1,5 @@
 {ns sdc-box
- import #{aidbox.rest}
+ import #{aidbox.rest vitals}
 
  box
  {:zen/tags #{aidbox/system}
