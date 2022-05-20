@@ -24,23 +24,29 @@
  {:zen/tags #{aidbox.sdc/Form}
   :document VitalsDocument
   :engine aidbox.sdc/Hiccup
-  :layout [:col
-           [:row [:field {:bind [:body-temperature]}]]
-           [:row [:group {:label "Blood pressure"}
-                  [:block
-                   [:field {:bind [:brach-a-l-bp-sys]}]
-                   [:field {:bind [:brach-a-l-bp-dias]}]
-                   ]
-                  [:block
-                   [:field {:bind [:brach-a-r-bp-sys]}]
-                   [:field {:bind [:brach-a-r-bp-dias]}]
-                   ]
-                  ]]
-           [:row [:field {:bind [:heart-rate] :label "Pulse Rate"}]]
-           [:row [:field {:bind [:resp-rate]}]]
-           [:row [:field {:bind [:sao2-%-blda-pulseox]}]]
-           [:row [:field {:bind [:weight]}]]
-           [:row [:field {:bind [:body-height]}]]]}
+  :layout [:form
+   [:header "Vitals"]
+   [:field {:bind [:body-temperature], :label "Temperature", :unit "F"}]
+   [:field
+    {:type "double"
+     :bind [:blood-pressure-dias :blood-pressure-sys]
+     :label "Blood Pressure"
+     :unit "mmHg"}]
+   [:row
+    [:label "Blood Pressure"]
+    [:input {:bind [:blood-pressure-dias]}]
+    [:input {:bind [:blood-pressure-sys]}]]
+   [:field {:bind [:heart-rate], :label "Pulse Rate", :unit "bpm"}]
+   [:field {:bind [:resp-rate], :label "Respiratory rate", :unit "bpm"}]
+   [:field
+    {:bind [:sao2-%-blda-pulseox]
+     :label "Oxygen saturation"
+     :unit "%SpO2"}]
+   [:field {:bind [:weight], :label "Weight", :unit "lbs"}]
+   [:field {:bind [:body-height], :label "Height"}]
+   [:field {:bind [:bmi], :label "BMI"}]
+  ]
+ }
 
  VitalsLaunch
  {:zen/tags #{aidbox.sdc/Launch}
