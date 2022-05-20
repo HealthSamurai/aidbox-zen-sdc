@@ -3,6 +3,7 @@ import { setInstanceToken } from 'aidbox-react/lib/services/instance';
 import { resetInstanceToken } from 'aidbox-react/lib/services/instance';
 import { service } from 'aidbox-react/lib/services/service';
 import { Token } from 'aidbox-react/lib/services/token';
+
 import { User } from '../contrib/aidbox';
 
 export interface AppToken extends Token {

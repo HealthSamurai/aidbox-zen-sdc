@@ -3,8 +3,8 @@ import React from 'react';
 import { useService } from 'aidbox-react/lib/hooks/service';
 import { isFailure, success } from 'aidbox-react/lib/libs/remoteData';
 import { resetInstanceToken, setInstanceToken } from 'aidbox-react/lib/services/instance';
-import { User } from '../../contrib/aidbox';
 
+import { User } from '../../contrib/aidbox';
 import { getToken, getUserInfo, removeToken, isNetworkError } from '../../services/auth';
 
 const token = getToken();
