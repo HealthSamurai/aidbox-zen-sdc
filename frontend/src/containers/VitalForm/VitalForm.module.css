@@ -1,0 +1,24 @@
+.container {
+    margin: 20px auto;
+    padding: 0 18px;
+    max-width: 980px;
+}
+
+.fukudo_form {
+}
+.fukudo_row {
+    margin: 12px 0;
+}
+.fukudo_actions {
+    margin: 24px 0 0;
+}
+.fukudo_box {
+    display: flex;
+}
+.fukudo_col {
+}
+
+.fukudo_label {
+    display: inline-block;
+    min-width: 200px;
+}
