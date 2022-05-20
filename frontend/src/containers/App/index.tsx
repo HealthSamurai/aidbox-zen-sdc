@@ -4,6 +4,8 @@ import { RenderRemoteData } from 'aidbox-react/lib/components/RenderRemoteData';
 
 import { SignIn } from '../SignIn';
 import { useApp } from './useApp';
+import { FormList } from '../FormList';
+import { Form } from '../Form';
 
 export function App() {
     const userRD = useApp();
@@ -14,10 +16,10 @@ export function App() {
                 {(user) => (
                     <Routes>
                         {user ? (
-                            <Route
-                                path="*"
-                                element={<pre>{JSON.stringify(user, undefined, 4)}</pre>}
-                            />
+                            <>
+                                <Route path="form/:nameSpace/:name" element={<Form />} />
+                                <Route path="*" element={<FormList />} />
+                            </>
                         ) : (
                             <>
                                 <Route path="signin" element={<SignIn />} />
