@@ -1,13 +1,14 @@
-import { isSuccess } from 'aidbox-react/lib/libs/remoteData';
 import { useCallback, useState } from 'react';
+
+import { isSuccess } from 'aidbox-react/lib/libs/remoteData';
 
 import { setToken, signin } from '../../services/auth';
 
 export const useSignIn = () => {
-    const [username,setUsername] = useState('')
-    const [password,setPassword] = useState('')
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const signIn = useCallback(async () => {
-        const values = {email:username, password}
+        const values = { email: username, password };
         const signinResponse = await signin(values);
         if (isSuccess(signinResponse)) {
             const { access_token, token_type } = signinResponse.data;

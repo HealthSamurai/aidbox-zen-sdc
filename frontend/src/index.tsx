@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { setInstanceBaseURL } from 'aidbox-react/lib/services/instance';
+
 import './index.css';
 import { App } from './containers/App';
 import reportWebVitals from './reportWebVitals';
-import { setInstanceBaseURL } from 'aidbox-react/lib/services/instance';
 
-setInstanceBaseURL('http://localhost:8080')
+setInstanceBaseURL('http://localhost:8080');
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>

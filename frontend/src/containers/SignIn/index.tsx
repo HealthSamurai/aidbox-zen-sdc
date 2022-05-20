@@ -8,9 +8,18 @@ export function SignIn() {
             <div>
                 <div>Please log in</div>
                 <div>Username</div>
-                <input placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
+                <input
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
                 <div>Password</div>
-                <input type="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                <input
+                    type="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 <button onClick={signIn}>Login</button>
             </div>
         </div>
