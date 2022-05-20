@@ -51,7 +51,6 @@
  VitalsFinalize
  {:zen/tags #{aidbox.sdc/Finalize}
   :document VitalsDocument
-  :export-engine aidbox.sdc/Jute
   :profile {:require #{:heart-rate}}}
 
 ;; bigger form - comp of forms
