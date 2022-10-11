@@ -1,0 +1,201 @@
+{ns forms.gad-7
+ import #{zenbox aidbox.sdc aidbox.sdc.fhir}
+
+ LL358-3
+ {:type zen/map
+  :zen/tags #{zen/schema}
+  :confirms #{aidbox.sdc.fhir/coding}
+  :keys {:score {:type zen/integer}}
+  :enum [{:value {:display "Not at all" :code "LA6568-5" :score 0 :system "http://loinc.org"}}
+         {:value {:display "Several days" :code "LA6569-3" :score 1 :system "http://loinc.org"}}
+         {:value {:display "More than half the days" :code "LA6570-1" :score 2 :system "http://loinc.org"}}
+         {:value {:display "Nearly every day" :code "LA6571-9" :score 3 :system "http://loinc.org"}}]}
+
+ GAD7Document
+ {:zen/tags #{zen/schema aidbox.sdc/doc aidbox.sdc/rules}
+  :zen/desc "GAD-7"
+  :type zen/map
+  :confirms #{aidbox.sdc/Document}
+  :sdc/rules {:70274-6 (lisp/+
+                        (lisp/get-in [:69725-0 :score])
+                        (lisp/get-in [:68509-9 :score])
+                        (lisp/get-in [:69733-4 :score])
+                        (lisp/get-in [:69734-2 :score])
+                        (lisp/get-in [:69735-9 :score])
+                        (lisp/get-in [:69689-8 :score])
+                        (lisp/get-in [:69736-7 :score]))}
+  :keys {:69725-0 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69725-0"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Feeling nervous, anxious, or on edge"}
+         :68509-9 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/68509-9"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Not being able to stop or control worrying"}
+         :69733-4 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69733-4"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Worrying too much about different things"}
+         :69734-2 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69734-2"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Trouble relaxing"}
+         :69735-9 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69735-9"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Being so restless that it is hard to sit still"}
+         :69689-8 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69689-8"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Becoming easily annoyed or irritable"}
+         :69736-7 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/69736-7"
+                   :confirms #{LL358-3}
+                   :sdc-type aidbox.sdc/choice
+                   :zen/desc "Feeling afraid, as if something awful might happen"}
+         :70274-6 {:questionCodeSystem "http://loinc.org"
+                   :linkId "/70274-6"
+                   :type zen/number
+                   :sdc-type aidbox.sdc/calculated
+                   :zen/desc "GAD-7 Anxiety Severity Score"}}}
+
+ GAD7Layout
+ {:zen/tags #{aidbox.sdc/Layout}
+  :document GAD7Document
+  :engine aidbox.sdc/Hiccup
+  :layout
+  {:type aidbox.sdc/col
+   :children
+   [{:type aidbox.sdc/col
+     :label "Over the last two weeks, how often have you been bothered by the following problems?"
+     :children
+     [{:type aidbox.sdc/fields
+       :children
+       [{:bind [:69725-0]}
+        {:bind [:68509-9]}
+        {:bind [:69733-4]}
+        {:bind [:69734-2]}
+        {:bind [:69735-9]}
+        {:bind [:69689-8]}
+        {:bind [:69736-7]}]}]}
+    {:bind [:70274-6]
+     :label "GAD-7 Anxiety Severity Score"}]}}
+
+ GAD7Launch
+ {:zen/tags #{aidbox.sdc/Launch}
+  :document GAD7Document
+  :params {:encounter-id {:type zen/string}}
+  :populate-engine aidbox.sdc/LispPopulate
+  :populate {:author    (lisp/get-in [:ctx :user])
+             :encounter {:id (lisp/get-in [:params :encounter-id]) :resourceType "Encounter"}
+             :patient   (lisp/sql {:select [:#> :resource [:subject]]
+                                   :from :Encounter
+                                   :where [:= :id (lisp/get-in [:params :encounter-id])]})}}
+
+ GAD7Finalize
+ {:zen/tags #{aidbox.sdc/Finalize zen/schema}
+  :document GAD7Document
+  :export-engine aidbox.sdc/LispExport
+  :create [(lisp/when (lisp/get :69725-0)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69725-0"
+                               :system "http://loinc.org"
+                               :display "Feeling nervous, anxious, or on edge"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69725-0) :score)]}}})
+           (lisp/when (lisp/get :68509-9)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "68509-9"
+                               :system "http://loinc.org"
+                               :display "Not being able to stop or control worrying"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :68509-9) :score)]}}})
+           (lisp/when (lisp/get :69733-4)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69733-4"
+                               :system "http://loinc.org"
+                               :display "Worrying too much about different things"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69733-4) :score)]}}})
+           (lisp/when (lisp/get :69734-2)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69734-2"
+                               :system "http://loinc.org"
+                               :display "Trouble relaxing"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69734-2) :score)]}}})
+           (lisp/when (lisp/get :69735-9)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69735-9"
+                               :system "http://loinc.org"
+                               :display "Being so restless that it is hard to sit still"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69735-9) :score)]}}})
+           (lisp/when (lisp/get :69689-8)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69689-8"
+                               :system "http://loinc.org"
+                               :display "Becoming easily annoyed or irritable"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69689-8) :score)]}}})
+           (lisp/when (lisp/get :69736-7)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "69736-7"
+                               :system "http://loinc.org"
+                               :display "Feeling afraid, as if something awful might happen"}]}
+              :value {:CodeableConcept {:coding [(lisp/dissoc (lisp/get :69736-7) :score)]}}})
+           (lisp/when (lisp/get :70274-6)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "70274-6"
+                               :system "http://loinc.org"
+                               :display "GAD-7 Anxiety Severity Score"}]}
+              :value {:integer (lisp/get :70274-6)}})]}
+
+ GAD7Form
+ {:zen/tags #{aidbox.sdc/Form}
+  :title    "GAD-7"
+  :version  "1.0.0"
+  :document GAD7Document
+  :layout   GAD7Layout
+  :launch   GAD7Launch
+  :finalize GAD7Finalize}}

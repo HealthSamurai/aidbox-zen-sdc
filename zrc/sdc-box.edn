@@ -1,13 +1,44 @@
 {ns sdc-box
- import #{aidbox.rest vitals}
+ import #{aidbox.rest forms}
 
  box
  {:zen/tags #{aidbox/system}
   :zen/desc "test server"
-  :services {:seed-fixtures seed-fixtures}}
+  :services {:seed-fixtures seed-fixtures
+             :sdc sdc-service}}
+
+ sdc-service
+ {:zen/tags  #{aidbox/service}
+  :engine    aidbox.sdc/service
+  :versioning {:enabled false}
+  :wf-items-ids-gen {:enabled true}}
 
  seed-fixtures
- {:zen/tags  #{aidbox/service}
-  :engine    aidbox/seed
-  :resources {:Client {:SPA {:grant_types ["password"]}}}}
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :resources {:Patient {:morgan {:name [{:family "James" :given ["Morgan"]}]
+                                 :gender "male"
+                                 :identifier [{:system "" :value ""}]
+                                 :address [{:city "Historic City"
+                                            :line ["534 Erewhon St"]
+                                            :state "DE"}]
+                                 :maritalStatus {:coding [{:system "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                                                           :code "M",
+                                                           :display "Married"}]}
+                                 :birthDate "1996-12-05"
+                                 :meta {:profile ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"]}}}
+              :Encounter {:enc-1 {:status "planned"
+                                  :subject {:id "morgan"
+                                            :resourceType "Patient"}
+                                  :class
+                                  {:system "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                   :code "HH"}}}
+              :Observation {:enc-1-symptom-observation {:status "preliminary"
+                                                        :code {:coding [{:system "https://loinc.org",
+                                                                         :code "75325-1",
+                                                                         :display "Symptom"}]}
+                                                        :encounter {:id "enc-1"
+                                                                    :resourceType "Encounter"}
+                                                        :value {:string "Encounter 1 Test Symptom"}}}}}
+
 }

@@ -1,0 +1,353 @@
+{ns forms.phq2phq9
+ import #{zenbox
+          aidbox.sdc
+          aidbox.sdc.fhir}
+
+ LL358-3
+ {:zen/tags #{zen/schema}
+  :type zen/map
+  :keys {:score {:type zen/integer}}
+  :confirms #{aidbox.sdc.fhir/coding}
+  :enum [{:value {:display "Not at all" :code "LA6568-5" :score 0 :system "http://loinc.org"}}
+         {:value {:display "Several days" :code "LA6569-3" :score 1 :system "http://loinc.org"}}
+         {:value {:display "More than half the days" :code "LA6570-1" :score 2 :system "http://loinc.org"}}
+         {:value {:display "Nearly every day" :code "LA6571-9" :score 3 :system "http://loinc.org"}}]}
+
+;;
+;; PHQ2 PHQ9 - Depression Screening
+;;
+ PHQ2PHQ9Document
+ {:zen/tags #{zen/schema aidbox.sdc/doc aidbox.sdc/rules},
+  :type zen/map,
+  :confirms #{aidbox.sdc/Document},
+  :sdc/rules {:loinc-55758-7 (lisp/+
+                              (lisp/get-in [:loinc-44250-9 :score])
+                              (lisp/get-in [:loinc-44255-8 :score])),
+              :heal-phq2-interp (lisp/get-in [:loinc-55758-7]),
+              :loinc-44261-6 (lisp/+
+                              (lisp/get-in [:loinc-44250-9 :score])
+                              (lisp/get-in [:loinc-44255-8 :score])
+                              (lisp/get-in [:loinc-44258-2 :score])
+                              (lisp/get-in [:loinc-44251-7 :score])
+                              (lisp/get-in [:loinc-44252-5 :score])
+                              (lisp/get-in [:loinc-44259-0 :score])
+                              (lisp/get-in [:loinc-44254-1 :score])
+                              (lisp/get-in [:loinc-44260-8 :score])
+                              (lisp/get-in [:loinc-44253-3 :score])),
+              :loinc-LL382-3 (lisp/get-in [:loinc-44261-6]),
+              :final-score  (lisp/if
+                             (lisp/or ;; TODO refer?
+                              (lisp/get-in [:misc-yes-no-button])
+                              (lisp/>=
+                               (lisp/+
+                                (lisp/get-in [:loinc-44250-9  :score]) (lisp/get-in [:loinc-44255-8 :score]))
+                               3))
+                              (lisp/get-in [:loinc-44261-6])
+                              (lisp/get-in [:loinc-55758-7]))},
+  :keys {:loinc-44261-6 {:sdc-type aidbox.sdc/calculated,
+                         :type zen/number
+                         :zen/desc "PHQ-9 total score [Reported]"},
+         :loinc-44258-2 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44258-2",
+                         :confirms #{LL358-3}
+                         :text "Feeling bad about yourself-or that you are a failure or have let yourself or your family down",
+                         :sdc-type aidbox.sdc/choice,
+                         :zen/desc "Feeling bad about yourself-or that you are a failure or have let yourself or your family down"},
+         :heal-phq2-interp {:sdc-type aidbox.sdc/calculated,
+                            :type zen/integer
+                            :zen/desc "PHQ-2 interp score"},
+         :loinc-44260-8 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44260-8",
+                         :confirms #{LL358-3}
+                         :text "Thoughts that you would be better off dead, or of hurting yourself in some way",
+                         :sdc-type aidbox.sdc/choice,
+                         :zen/desc "Thoughts that you would be better off dead, or of hurting yourself in some way"},
+         :loinc-44251-7 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44251-7",
+                         :confirms #{LL358-3}
+                         :sdc-type aidbox.sdc/choice,
+                         :text "Poor appetite or overeating",
+                         :zen/desc "Poor appetite or overeating"},
+         :loinc-55758-7 {:sdc-type aidbox.sdc/calculated,
+                         :type zen/number
+                         :zen/desc "PHQ-2 total score [Reported]"},
+         :loinc-LL382-3 {:sdc-type aidbox.sdc/calculated,
+                         :type zen/number
+                         :zen/desc "PHQ-9 Interp-score"},
+         :loinc-44252-5 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44252-5",
+                         :confirms #{LL358-3},
+                         :sdc-type aidbox.sdc/choice,
+                         :text "Trouble concentrating on things, such as reading the newspaper or watching television",
+                         :zen/desc "Trouble concentrating on things, such as reading the newspaper or watching television"},
+         :loinc-44255-8 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44255-8",
+                         :confirms #{LL358-3}
+                         :sdc-type aidbox.sdc/choice,
+                         :text "Feeling down, depressed, or hopeless",
+                         :zen/desc "Feeling down, depressed, or hopeless"},
+         :misc-yes-no-button {:type zen/boolean
+                              :zen/desc "**PHQ-9 Questionnaire:** For positive depression screen or follow up"},
+         :misc-yes-button {:type zen/boolean
+                           :sdc/default-value true
+                           :zen/desc "**PHQ-9 Questionnaire:** For positive depression screen or follow up"},
+         :final-score {:sdc-type aidbox.sdc/calculated,
+                       :type zen/number
+                       :zen/desc "UI score display"},
+         :loinc-44259-0 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44259-0",
+                         :confirms #{LL358-3}
+                         :sdc-type aidbox.sdc/choice,
+                         :text "Trouble falling or staying asleep, or sleeping too much",
+                         :zen/desc "Trouble falling or staying asleep, or sleeping too much"},
+         :loinc-44250-9 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44250-9",
+                         :sdc-type aidbox.sdc/choice
+                         :confirms #{LL358-3}
+                         :text "Little interest or pleasure in doing things",
+                         :zen/desc "Little interest or pleasure in doing things"},
+         :loinc-44254-1 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44254-1",
+                         :sdc-type aidbox.sdc/choice,
+                         :confirms #{LL358-3}
+                         :text "Feeling tired or having little energy",
+                         :zen/desc "Feeling tired or having little energy"},
+         :loinc-44253-3 {:questionCodeSystem "http://loinc.org",
+                         :linkId "/44253-3",
+                         :sdc-type aidbox.sdc/choice,
+                         :confirms #{LL358-3}
+                         :text "Moving or speaking so slowly that other people could have noticed. Or the opposite-being so fidgety or restless that you have been moving around a lot more than usual",
+                         :zen/desc "Moving or speaking so slowly that other people could have noticed. Or the opposite-being so fidgety or restless that you have been moving around a lot more than usual"}}}
+
+ PHQ2PHQ9Layout
+ {:zen/tags #{aidbox.sdc/Layout aidbox.sdc/rules}
+  :document PHQ2PHQ9Document
+  :engine aidbox.sdc/Hiccup
+  :sdc/rules {:disable-button
+              (lisp/>=
+               (lisp/+
+                (lisp/get-in [:loinc-44250-9 :score]) (lisp/get-in [:loinc-44255-8 :score]))
+               3)
+              :enable-phq9
+              (lisp/or ;; TODO refer?
+               (lisp/get-in [:misc-yes-no-button])
+               (lisp/>=
+                (lisp/+
+                 (lisp/get-in [:loinc-44250-9 :score]) (lisp/get-in [:loinc-44255-8 :score]))
+                3))}
+  :layout
+  {:type aidbox.sdc/col
+   :children
+   [{:bind [:misc-yes-no-button]
+     :sdc/display-when (lisp/not (lisp/get :disable-button))
+     :sdc/disable-when (lisp/get :disable-button)}
+    {:bind [:misc-yes-button]
+     :sdc/display-when (lisp/get :disable-button)
+     :sdc/disable-when (lisp/get :disable-button)}
+    {:type aidbox.sdc/fields
+     :children
+     [{:type aidbox.sdc/fields,
+       :label "Over the past 2 weeks, how often have you been bothered by:"
+       :children
+       [{:type aidbox.sdc/fields,
+         :children
+         [{:bind [:loinc-44255-8]}
+          {:bind [:loinc-44250-9]}]}
+        {:type aidbox.sdc/fields,
+         :sdc/display-when (lisp/get-in [:enable-phq9])
+         :children
+         [{:bind [:loinc-44259-0]}
+          {:bind [:loinc-44254-1]}
+          {:bind [:loinc-44251-7]}
+          {:bind [:loinc-44258-2]}
+          {:bind [:loinc-44252-5]}
+          {:bind [:loinc-44253-3]}
+          {:bind [:loinc-44260-8]}]}]}
+      {:bind [:final-score]
+       :label "PHQ2/PHQ-9 Depression Screening"}]}]}}
+
+ PHQ2PHQ9Launch
+ {:zen/tags #{aidbox.sdc/Launch}
+  :document PHQ2PHQ9Document
+  :params {:encounter-id {:type zen/string}}
+  :populate-engine aidbox.sdc/LispPopulate
+  :populate {:author    (lisp/get-in [:ctx :user])
+             :encounter {:id (lisp/get-in [:params :encounter-id]) :resourceType "Encounter"}
+             :patient   (lisp/sql ["SELECT resource #> '{subject}' FROM Encounter WHERE id = ?"
+                                   (lisp/get-in [:params :encounter-id])])}}
+
+ PHQ2PHQ9Finalize
+ {:zen/tags #{aidbox.sdc/Finalize zen/schema},
+  :document PHQ2PHQ9Document,
+  :export-engine aidbox.sdc/LispExport
+  :create [(lisp/when
+            (lisp/get :loinc-55758-7)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "55758-7"}]},
+              :value {:integer (lisp/get :loinc-55758-7)}})
+           (lisp/when
+            (lisp/get :loinc-55758-7)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "PHQ2-interp-score"}]},
+              :value {:string (lisp/if
+                               (lisp/> (lisp/get :loinc-55758-7) 2)
+                                "positive"
+                                "negative")}})
+           (lisp/when
+            (lisp/and
+             (lisp/get :loinc-44261-6)
+             (lisp/> (lisp/get :loinc-44261-6) 2))
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44261-6"}]},
+              :value {:integer (lisp/get :loinc-44261-6)}})
+           (lisp/when
+            (lisp/and
+             (lisp/get :loinc-44261-6)
+             (lisp/> (lisp/get :loinc-44261-6) 2))
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "LL382-3"}]},
+              :value {:CodeableConcept {:coding [(lisp/cond
+                                                   (lisp/< 1 (lisp/get
+                                                              :loinc-44261-6) 5)
+                                                   {:code "LA6708-7",
+                                                    :display "0-4 = None",
+                                                    :system "http://loinc.org"}
+                                                   (lisp/< 4 (lisp/get
+                                                              :loinc-44261-6) 10)
+                                                   {:code "LA6709-5",
+                                                    :display "5-9 = Mild depression",
+                                                    :system "http://loinc.org"}
+                                                   (lisp/< 9 (lisp/get
+                                                               :loinc-44261-6) 15)
+                                                   {:code "LA6710-3"
+                                                    :display "10-14 = Moderate depression"
+                                                    :system "http://loinc.org"}
+                                                   (lisp/< 14 (lisp/get
+                                                               :loinc-44261-6) 20)
+                                                   {:code "LA6711-1",
+                                                    :display "15-19 = Moderately severe depression",
+                                                    :system "http://loinc.org"}
+                                                   (lisp/< 19 (lisp/get
+                                                               :loinc-44261-6))
+                                                   {:code "LA6712-9",
+                                                    :display "20-27 = Severe depression",
+                                                    :system "http://loinc.org"})]}}})
+           (lisp/when
+            (lisp/get :loinc-44258-2)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44258-2"}]},
+              :value {:integer (lisp/get-in [:loinc-44258-2 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44260-8)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44260-8"}]},
+              :value {:integer (lisp/get-in [:loinc-44260-8 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44251-7)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44251-7"}]},
+              :value {:integer (lisp/get-in [:loinc-44251-7 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44252-5)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44252-5"}]},
+              :value {:integer (lisp/get-in [:loinc-44252-5 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44255-8)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44255-8"}]},
+              :value {:integer (lisp/get-in [:loinc-44255-8 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44259-0)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44259-0"}]},
+              :value {:integer (lisp/get-in [:loinc-44259-0 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44250-9)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44250-9"}]},
+              :value {:integer (lisp/get-in [:loinc-44250-9 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44254-1)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44254-1"}]},
+              :value {:integer (lisp/get-in [:loinc-44254-1 :score])}})
+           (lisp/when
+            (lisp/get :loinc-44253-3)
+             {:resourceType "Observation",
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient),
+              :encounter (lisp/get :encounter),
+              :status "final",
+              :code {:coding [{:code "44253-3"}]},
+              :value {:integer (lisp/get-in [:loinc-44253-3 :score])}})]}
+
+ PHQ2PHQ9Form
+ {:zen/tags #{aidbox.sdc/Form}
+  :title    "PHQ2/PHQ9 Depression Form"
+  :version  "1.0.0"
+  :document PHQ2PHQ9Document
+  :layout   PHQ2PHQ9Layout
+  :launch   PHQ2PHQ9Launch
+  :finalize PHQ2PHQ9Finalize}}
