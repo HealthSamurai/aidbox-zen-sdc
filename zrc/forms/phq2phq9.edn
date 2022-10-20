@@ -23,7 +23,7 @@
   :sdc/rules {:loinc-55758-7 (lisp/+
                               (lisp/get-in [:loinc-44250-9 :score])
                               (lisp/get-in [:loinc-44255-8 :score])),
-              :heal-phq2-interp (lisp/get-in [:loinc-55758-7]),
+              :phq2-interp (lisp/get-in [:loinc-55758-7]),
               :loinc-44261-6 (lisp/+
                               (lisp/get-in [:loinc-44250-9 :score])
                               (lisp/get-in [:loinc-44255-8 :score])
@@ -53,7 +53,7 @@
                          :text "Feeling bad about yourself-or that you are a failure or have let yourself or your family down",
                          :sdc-type aidbox.sdc/choice,
                          :zen/desc "Feeling bad about yourself-or that you are a failure or have let yourself or your family down"},
-         :heal-phq2-interp {:sdc-type aidbox.sdc/calculated,
+         :phq2-interp {:sdc-type aidbox.sdc/calculated,
                             :type zen/integer
                             :zen/desc "PHQ-2 interp score"},
          :loinc-44260-8 {:questionCodeSystem "http://loinc.org",

@@ -148,7 +148,7 @@
               :options [{:status "active"} {}]
               :sdc/disable-when (lisp/< (lisp/count (lisp/matcho-filter (lisp/get-in [:allergies])
                                                                         {:status "inactive"})) 1)
-              :control heal.controls/ButtonChoice}]}}
+              }]}}
 
  AllergiesLaunch
  {:zen/tags #{aidbox.sdc/Launch}
