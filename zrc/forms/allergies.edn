@@ -184,7 +184,7 @@
  {:zen/tags #{aidbox.sdc/Finalize zen/schema}
   :document AllergiesDocument
   :export-engine aidbox.sdc/LispExport
-  :create [(lisp/rpc {:method 'aidbox.sdc/convert-document
+  :create [#_(lisp/rpc {:method 'aidbox.sdc/convert-document
                       :params {:id (lisp/get :id)}})
            (lisp/for [lisp/i (lisp/get-in [:allergies])]
              {:id (lisp/get-in lisp/i [:id])
