@@ -1,11 +1,11 @@
 {ns forms.annual-wellness-visit
  import #{aidbox.sdc
-          aidbox.sdc.forms.vitals
-          aidbox.sdc.forms.phq2phq9
-          aidbox.sdc.forms.gad-7
-          aidbox.sdc.forms.allergies
-          aidbox.sdc.forms.ros
-          aidbox.sdc.forms.physical-exam}
+          forms.vitals
+          forms.phq2phq9
+          forms.gad-7
+          forms.allergies
+          forms.ros
+          forms.physical-exam}
 
  AnnualWellnessWorkflow
  {:zen/tags #{aidbox.sdc/Workflow}
@@ -13,14 +13,14 @@
   :items {:visit-overview {:item aidbox.sdc/SectionItem
                            :title "Visit Overview"
                            :items {:review-of-systems   {:item aidbox.sdc/FormItem
-                                                         :form aidbox.sdc.forms.ros/RoSForm}}}
+                                                         :form forms.ros/RoSForm}}}
 
           :questionnaires {:item aidbox.sdc/SectionItem
                            :title "Questionnaires"
                            :items {:gad-7 {:item aidbox.sdc/FormItem
-                                           :form aidbox.sdc.forms.gad-7/GAD7Form}
+                                           :form forms.gad-7/GAD7Form}
                                    :phq2phq9 {:item aidbox.sdc/FormItem
-                                              :form aidbox.sdc.forms.phq2phq9/PHQ2PHQ9Form
+                                              :form forms.phq2phq9/PHQ2PHQ9Form
                                               :sdc/enable-when (lisp/>=
                                                                 (lisp/get-in [:items :questionnaires
                                                                               :items :gad-7
@@ -29,15 +29,15 @@
           :physical-exam {:item aidbox.sdc/SectionItem
                           :title "Physical Exam"
                           :items {:vitals   {:item aidbox.sdc/FormItem
-                                             :form  aidbox.sdc.forms.vitals/VitalsForm}
+                                             :form  forms.vitals/VitalsForm}
                                   :physical-exam   {:item aidbox.sdc/FormItem
                                                     :sdc/inject {:ros/general-comment
                                                                  (lisp/get-in [:items :visit-overview
                                                                                :items :review-of-systems
                                                                                :document :loinc-71407-1-comment])}
-                                                    :form  aidbox.sdc.forms.physical-exam/PhysicalExamForm}}}
+                                                    :form  forms.physical-exam/PhysicalExamForm}}}
           :medication-and-allergy {:item aidbox.sdc/SectionItem
                                    :title "Allergies"
                                    :items {:allergies {:item aidbox.sdc/FormItem
-                                                       :form aidbox.sdc.forms.allergies/AllergiesForm}}}}}
+                                                       :form forms.allergies/AllergiesForm}}}}}
  }
