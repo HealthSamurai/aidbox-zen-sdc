@@ -128,7 +128,6 @@
                                          :label "Fill"
                                          :value "Normal ROM of UE and LE, normal bulk and tone."}]}]}
                 {:type aidbox.sdc/row
-                 :label "Extremities"
                  :children [{:type aidbox.sdc/row
 
                              :children [{:type aidbox.sdc/label
