@@ -8,19 +8,18 @@ You need to have the following software installed:
 * docker-compose
 * nodejs + npm
 * text editor with color highlighting
-> Recommended VSCode editor with `zen-lsp` plugin
+> VSCode editor with `zen-lsp` plugin is recommended
 * any modern web-browser
 
 # Dev setup
 
-* Install FHIR packages by running `npm install` from `zrc` directory
 * Create `.env` file (by copying from `.env.tpl`) with your `AIDBOX_LICENSE`
-* Run in the terminal `make up`
-* You can edit zen files in `zrc` directory and they will be automatically reloaded.
-* Open Aidbox console in browser http://localhost:8080/
+* Prepare project and install FHIR packages by running `make init` in the terminal
+* Start system by running `make up`
+* Open Aidbox console in browser http://localhost:8080/ and login with `admin:password`
 * Go to zen resources by pressing the button `Profiles` (or by visiting http://localhost:8080/ui/zen-ui )
+* You can edit zen files in `zrc` directory and they will be automatically reloaded.
 
 > Caveats - models for persistence can't be live-reloaded. You need to restart the app
 
-
-To finish development you can run `make down` to shutdown all services.
+* To finish development you can run `make down` to shutdown all services.
