@@ -172,10 +172,13 @@
  {:zen/tags #{aidbox.sdc/Layout}
   :engine aidbox.sdc/Hiccup
   :layout
-  {:type aidbox.sdc/fields
-   :children
-   [{:bind [:loinc-8310-5-value] :last-change-datetime [:datetime] :label ""}
-    {:bind [:datetime] :label "" :is-last-change true}]}}
+  {:type aidbox.sdc/col
+   :children [{:type aidbox.sdc/label
+               :label "Temperature"}
+              {:type aidbox.sdc/fields
+               :children
+               [{:bind [:loinc-8310-5-value] :last-change-datetime [:datetime] :label ""}
+                {:bind [:datetime] :label "" :is-last-change true}]}]}}
 
  VitalsLayout
 {:zen/tags #{aidbox.sdc/Layout},
@@ -183,73 +186,78 @@
  :engine aidbox.sdc/Hiccup
  :layout {:type aidbox.sdc/col,
           :children [{:type aidbox.sdc/row,
-                      :label "Temperature",
                       :children [{:type aidbox.sdc/subform,
                                   :bind [:loinc-8310-5],
                                   :collection true,
                                   :form-ref body-temperature-subform}]}
                      {:type aidbox.sdc/row,
-                      :label "Blood Pressure",
                       :children [{:type aidbox.sdc/subform,
                                   :bind [:loinc-85354-9],
                                   :collection true,
-                                  :form-layout {:type aidbox.sdc/fields,
-                                                :children [{:type aidbox.sdc/row,
-                                                            :children [{:bind [:loinc-8480-6],
-                                                                        :last-change-datetime [:datetime]}
-                                                                       {:bind [:loinc-8462-4],
-                                                                        :last-change-datetime [:datetime]}]}
-                                                           {:type aidbox.sdc/row,
-                                                            :children [{:bind [:loinc-8361-8]}
-                                                                       {:bind [:loinc-41904-4]}]}
-                                                           {:bind [:datetime],
-                                                            :label "",
-                                                            :is-last-change true}]}}]}
+                                  :form-layout {:type aidbox.sdc/col
+                                                :children [{:type aidbox.sdc/label
+                                                            :label "Blood Pressure",}
+                                                           {:type aidbox.sdc/fields,
+                                                            :children [{:type aidbox.sdc/row,
+                                                                        :children [{:bind [:loinc-8480-6],
+                                                                                    :last-change-datetime [:datetime]}
+                                                                                   {:bind [:loinc-8462-4],
+                                                                                    :last-change-datetime [:datetime]}]}
+                                                                       {:type aidbox.sdc/row,
+                                                                        :children [{:bind [:loinc-8361-8]}
+                                                                                   {:bind [:loinc-41904-4]}]}
+                                                                       {:bind [:datetime],
+                                                                        :label "",
+                                                                        :is-last-change true}]}]}}]}
                      {:type aidbox.sdc/row,
-                      :label "Pulse Rate",
+
                       :children [{:type aidbox.sdc/subform,
                                   :bind [:loinc-8867-4],
                                   :collection true,
-                                  :form-layout {:type aidbox.sdc/fields,
-                                                :children [{:bind [:loinc-8867-4-value],
-                                                            :label "",
-                                                            :last-change-datetime [:datetime]}
-                                                           {:bind [:datetime],
-                                                            :label "",
-                                                            :is-last-change true}]}}]}
+                                  :form-layout {:type aidbox.sdc/col
+                                                :children [{:type aidbox.sdc/label
+                                                            :label "Pulse Rate"}
+                                                           {:type aidbox.sdc/fields,
+                                                            :children [{:bind [:loinc-8867-4-value],
+                                                                        :label "",
+                                                                        :last-change-datetime [:datetime]}
+                                                                       {:bind [:datetime],
+                                                                        :label "",
+                                                                        :is-last-change true}]}]}}]}
                      {:type aidbox.sdc/row,
-                      :label "Respiratory Rate",
                       :children [{:type aidbox.sdc/subform,
                                   :bind [:loinc-9279-1],
                                   :collection true,
-                                  :form-layout {:type aidbox.sdc/fields,
-                                                :children [{:bind [:loinc-9279-1-value],
-                                                            :label "",
-                                                            :last-change-datetime [:datetime]}
-                                                           {:bind [:datetime],
-                                                            :label "",
-                                                            :is-last-change true}]}}]}
+                                  :form-layout {:type aidbox.sdc/col
+                                                :children [{:type aidbox.sdc/label
+                                                            :label "Respiratory Rate"}
+                                                           {:type aidbox.sdc/fields,
+                                                            :children [{:bind [:loinc-9279-1-value],
+                                                                        :label "",
+                                                                        :last-change-datetime [:datetime]}
+                                                                       {:bind [:datetime],
+                                                                        :label "",
+                                                                        :is-last-change true}]}]}}]}
                      {:type aidbox.sdc/row,
-                      :label "Oxygen Saturation",
                       :children [{:type aidbox.sdc/subform,
                                   :bind [:loinc-59408-5],
                                   :collection true,
-                                  :form-layout {:type aidbox.sdc/fields,
-                                                :children [{:bind [:loinc-59408-5-value],
-                                                            :label "",
-                                                            :last-change-datetime [:datetime]}
-                                                           {:bind [:datetime],
-                                                            :label "",
-                                                            :is-last-change true}]}}]}
+                                  :form-layout {:type aidbox.sdc/col
+                                                :children [{:type aidbox.sdc/label
+                                                            :label "Oxygen Saturation",}
+                                                           {:type aidbox.sdc/fields,
+                                                            :children [{:bind [:loinc-59408-5-value],
+                                                                        :label "",
+                                                                        :last-change-datetime [:datetime]}
+                                                                       {:bind [:datetime],
+                                                                        :label "",
+                                                                        :is-last-change true}]}]}}]}
                      {:type aidbox.sdc/row,
-                      :label "Weight",
-                      :children [{:bind [:loinc-29463-7], :label ""}]}
+                      :children [{:bind [:loinc-29463-7], :label "Weight"}]}
+                     {:type aidbox.sdc/row
+                      :children [{:bind [:loinc-8302-2] :label "Height"}]}
                      {:type aidbox.sdc/row,
-                      :label "Height",
-                      :children [{:bind [:loinc-8302-2]}]}
-                     {:type aidbox.sdc/row,
-                      :label "Body Mass Index",
-                      :children [{:bind [:loinc-39156-5], :label ""}]}]}}
+                      :children [{:bind [:loinc-39156-5], :label "Body Mass Index"}]}]}}
 
 
  VitalsLaunch
