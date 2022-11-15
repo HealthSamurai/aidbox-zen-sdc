@@ -72,8 +72,9 @@
   :layout
   {:type aidbox.sdc/col
    :children
-   [{:type aidbox.sdc/col
-     :label "Over the last two weeks, how often have you been bothered by the following problems?"
+   [{:type aidbox.sdc/label
+     :label "Over the last two weeks, how often have you been bothered by the following problems?"}
+    {:type aidbox.sdc/col
      :children
      [{:type aidbox.sdc/fields
        :children

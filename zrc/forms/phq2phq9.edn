@@ -146,8 +146,9 @@
      :sdc/disable-when (lisp/get :disable-button)}
     {:type aidbox.sdc/fields
      :children
-     [{:type aidbox.sdc/fields,
-       :label "Over the past 2 weeks, how often have you been bothered by:"
+     [{:type aidbox.sdc/label
+       :label "Over the past 2 weeks, how often have you been bothered by:"}
+      {:type aidbox.sdc/fields,
        :children
        [{:type aidbox.sdc/fields,
          :children

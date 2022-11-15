@@ -55,8 +55,10 @@
    [{:bind [:loinc-71406-3]}
     {:type aidbox.sdc/fields
      :children
-     [{:type aidbox.sdc/fields
+     [{:type aidbox.sdc/label
        :label "Select abnormal systems"
+       :sdc/display-when (lisp/get :loinc-71406-3) }
+      {:type aidbox.sdc/fields
        :sdc/display-when (lisp/get :loinc-71406-3)
        :children
        [{:type aidbox.sdc/row
