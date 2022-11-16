@@ -4,6 +4,7 @@ init:
 	cd zrc && npm install
 
 up:
+	docker-compose pull
 	docker-compose up -d
 
 stop:
