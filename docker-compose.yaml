@@ -12,8 +12,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./config:/var/config:cached
-      - ./zrc:/zrc:cached
+      - "./:/project"
   devbox-healthcheck:
     image: curlimages/curl
     entrypoint: /bin/sleep 10000

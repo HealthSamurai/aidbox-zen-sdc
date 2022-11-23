@@ -1,5 +1,5 @@
 {ns sdc-box
- import #{aidbox.rest forms}
+ import #{aidbox.rest forms hl7-fhir-r4-core hl7-fhir-us-core}
 
  box
  {:zen/tags #{aidbox/system}
