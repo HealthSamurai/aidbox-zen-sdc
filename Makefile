@@ -1,11 +1,7 @@
-.PHONY: init up down stop update-aidbox-types
-
-init:
-	cd zrc && npm install
+.PHONY: up down stop
 
 up:
-	docker-compose pull
-	docker-compose up -d
+	docker-compose up -d --pull always
 
 stop:
 	docker-compose stop
