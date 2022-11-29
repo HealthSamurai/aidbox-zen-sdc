@@ -1,5 +1,6 @@
 .env
 
+**/.cache
 zrc/node_modules
 
 ### macOS ###
