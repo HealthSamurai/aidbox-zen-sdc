@@ -2,6 +2,8 @@
 
 **/.cache
 zrc/node_modules
+**.tmp
+**.temp
 
 ### macOS ###
 .DS_Store
