@@ -1,7 +1,8 @@
 .PHONY: up down stop
 
 up:
-	docker-compose up -d --pull always
+	docker-compose pull
+	docker-compose up -d
 
 stop:
 	docker-compose stop
