@@ -1,5 +1,9 @@
 {ns sdc-box
- import #{aidbox.rest aidbox.forms hl7-fhir-r4-core hl7-fhir-us-core}
+ import #{aidbox.rest
+          aidbox.forms.vitals
+          aidbox.forms.phq2phq9
+          aidbox.forms.gad7
+          hl7-fhir-r4-core hl7-fhir-us-core}
 
  box
  {:zen/tags #{aidbox/system}
