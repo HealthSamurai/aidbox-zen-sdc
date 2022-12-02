@@ -7,3 +7,4 @@ zrc/node_modules
 
 ### macOS ###
 .DS_Store
+/zen-packages/
