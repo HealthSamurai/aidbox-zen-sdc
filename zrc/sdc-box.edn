@@ -3,6 +3,10 @@
           aidbox.forms.vitals
           aidbox.forms.phq2phq9
           aidbox.forms.gad-7
+          aidbox.forms.allergies
+          aidbox.forms.ros
+          aidbox.forms.physical-exam
+          aidbox.forms.annual-wellness-visit
           hl7-fhir-r4-core hl7-fhir-us-core}
 
  box
