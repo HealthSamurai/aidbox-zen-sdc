@@ -15,11 +15,15 @@
   :services {:seed-fixtures seed-fixtures
              :sdc sdc-service}}
 
+ sdc-theme
+ {:zen/tags #{aidbox.sdc/theme}}
+
  sdc-service
  {:zen/tags  #{aidbox/service}
   :engine    aidbox.sdc/service
   :versioning {:enabled false}
-  :wf-items-ids-gen {:enabled true}}
+  :wf-items-ids-gen {:enabled true}
+  :theme sdc-theme}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
