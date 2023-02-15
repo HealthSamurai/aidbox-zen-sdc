@@ -15,15 +15,38 @@
   :services {:seed-fixtures seed-fixtures
              :sdc sdc-service}}
 
- sdc-theme
- {:zen/tags #{aidbox.sdc/theme}}
+ default-sdc-theme
+ {:zen/tags #{aidbox.sdc/theme}
+  :zen/desc "Default SDC theme"
+  :main-color [120 38 245]
+  :background {:main-color [243 244 246]
+               :form-color [255 255 255]
+               :toolbar-color [238 238 238]}
+  :input {:accent-color [120 38 245]
+          :background-color [238 238 238]
+          :text-color [0 0 0]}
+  :button {:accent-color [120 38 245]
+           :text-color [255 255 255]}}
+
+ nhs-sdc-theme
+ {:zen/tags #{aidbox.sdc/theme}
+  :zen/desc "Theme styled with NHS colors"
+  :main-color [0 94 184]
+  :background {:main-color [232 237 238]
+               :form-color [255 255 255]
+               :toolbar-color [118 134 146]}
+  :input {:accent-color [0 94 184]
+          :text-color [35 31 32]
+          :background-color [232 237 238]}
+  :button {:accent-color [0 94 184]
+           :text-color [255 255 255]}}
 
  sdc-service
  {:zen/tags  #{aidbox/service}
   :engine    aidbox.sdc/service
   :versioning {:enabled false}
   :wf-items-ids-gen {:enabled true}
-  :theme sdc-theme}
+  :theme default-sdc-theme}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
