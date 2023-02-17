@@ -28,10 +28,25 @@
   :button {:accent-color [120 38 245]
            :text-color [255 255 255]}}
 
+ monochrome-theme
+ {:zen/tags #{aidbox.sdc/theme}
+  :zen/desc "Monochrome example theme"
+  :main-color [52, 58, 64]
+  :background {:main-color [233, 236, 239]
+               :form-color [248, 249, 250]
+               :toolbar-color [206, 212, 218]}
+  :input {:background-color [233, 236, 239]}
+  :button {:accent-color [73, 80, 87]
+           :text-color [233, 236, 239]}}
+
+
  nhs-sdc-theme
  {:zen/tags #{aidbox.sdc/theme}
   :zen/desc "Theme styled with NHS colors"
   :main-color [0 94 184]
+  :font-family "Product Sans"
+  :brand-image {:top-right {:url "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/National_Health_Service_%28England%29_logo.svg/2560px-National_Health_Service_%28England%29_logo.svg.png"}
+                :bottom-left {:url "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/National_Health_Service_%28England%29_logo.svg/2560px-National_Health_Service_%28England%29_logo.svg.png"}}
   :background {:main-color [232 237 238]
                :form-color [255 255 255]
                :toolbar-color [118 134 146]}
@@ -40,6 +55,13 @@
           :background-color [232 237 238]}
   :button {:accent-color [0 94 184]
            :text-color [255 255 255]}}
+
+ hs-red-theme
+ {:zen/tags #{aidbox.sdc/theme}
+  :zen/desc "HS branded theme"
+  :main-color [234 74 53]
+  :brand-image {:top-right {:url "https://uploads-ssl.webflow.com/57441aa5da71fdf07a0a2e19/61653fe10ae2858d57ebbe31_hs-logo.png"}
+                :bottom-left {:url "https://uploads-ssl.webflow.com/57441aa5da71fdf07a0a2e19/602a2c95b4409e38b2d23295_aidbox-logo.svg"}}}
 
  sdc-service
  {:zen/tags  #{aidbox/service}
