@@ -68,7 +68,9 @@
   :engine    aidbox.sdc/service
   :versioning {:enabled false}
   :wf-items-ids-gen {:enabled true}
-  :theme default-sdc-theme}
+  :theme default-sdc-theme
+  :conversion {:convert-forms-on-start false
+               :convert-doc-on-save false}}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
