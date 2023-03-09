@@ -1,5 +1,6 @@
 {ns sdc-box
- import #{aidbox.rest
+ import #{aidbox.config
+          aidbox.rest
           aidbox.forms.vitals
           aidbox.forms.phq2phq9
           aidbox.forms.gad-7
@@ -9,9 +10,31 @@
           aidbox.forms.annual-wellness-visit
           hl7-fhir-r4-core hl7-fhir-us-core}
 
+
+ features
+ {:zen/tags #{aidbox.config/features}
+  :graphql        {:access-control "disabled"}
+  :validation     {:skip      {:reference false}
+                   :value-set {:mode "disabled"}}
+                  ;; Enable FTR Pull to load Forms Valusets
+  :ftr            {:pull {:enable true :sync false}}
+
+  :mapping        {:enable-access-control false}
+
+  :authentication {:skip-jwt-validation         true
+                   :introspection               {:create-user false}
+                   :auth-with-not-validated-jwt {}}
+  :http           {:return-404-on-empty-delete true}
+  :terminology    {:import {:sync false}}}
+
+ config
+ {:zen/tags #{aidbox.config/config}
+  :features features}
+
  box
  {:zen/tags #{aidbox/system}
   :zen/desc "test server"
+  :config   config
   :services {:seed-fixtures seed-fixtures
              :sdc sdc-service}}
 
@@ -100,4 +123,4 @@
                                                                     :resourceType "Encounter"}
                                                         :value {:string "Encounter 1 Test Symptom"}}}}}
 
-}
+ }
