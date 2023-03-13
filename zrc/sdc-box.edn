@@ -13,19 +13,7 @@
 
  features
  {:zen/tags #{aidbox.config/features}
-  :graphql        {:access-control "disabled"}
-  :validation     {:skip      {:reference false}
-                   :value-set {:mode "disabled"}}
-                  ;; Enable FTR Pull to load Forms Valusets
-  :ftr            {:pull {:enable true :sync false}}
-
-  :mapping        {:enable-access-control false}
-
-  :authentication {:skip-jwt-validation         true
-                   :introspection               {:create-user false}
-                   :auth-with-not-validated-jwt {}}
-  :http           {:return-404-on-empty-delete true}
-  :terminology    {:import {:sync false}}}
+  :ftr {:pull {:enable true :sync false}}}
 
  config
  {:zen/tags #{aidbox.config/config}
