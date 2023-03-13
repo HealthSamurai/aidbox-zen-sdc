@@ -29,6 +29,7 @@
 
  config
  {:zen/tags #{aidbox.config/config}
+  :auth     {:login-redirect "/ui/console"}
   :features features}
 
  box
