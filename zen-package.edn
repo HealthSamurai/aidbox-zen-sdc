@@ -1,3 +1,4 @@
-{:deps {hl7-fhir-r4-core "https://github.com/zen-fhir/hl7-fhir-r4-core.git"
-        aidbox-forms     "https://github.com/Aidbox/sdc-forms-library"
-        hl7-fhir-us-core "https://github.com/zen-fhir/hl7-fhir-us-core.git"}}
+{:deps {aidbox-forms "https://github.com/Aidbox/sdc-forms-library"
+        ;; hl7-fhir-r4-core "https://github.com/zen-fhir/hl7-fhir-r4-core.git"
+        ;; hl7-fhir-us-core "https://github.com/zen-fhir/hl7-fhir-us-core.git"
+        }}
