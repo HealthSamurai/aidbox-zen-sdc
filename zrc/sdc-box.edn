@@ -8,6 +8,7 @@
           aidbox.forms.ros
           aidbox.forms.physical-exam
           aidbox.forms.annual-wellness-visit
+          aidbox.forms
           hl7-fhir-r4-core hl7-fhir-us-core}
 
 
