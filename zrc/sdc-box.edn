@@ -16,9 +16,12 @@
  {:zen/tags #{aidbox.config/features}
   :ftr {:pull {:enable true :sync false}}}
 
+ auth {:zen/tags #{aidbox.config/auth}
+       :login-redirect "/ui/console"}
+
  config
  {:zen/tags #{aidbox.config/config}
-  :auth     {:login-redirect "/ui/console"}
+  :auth     auth
   :features features}
 
  box
@@ -82,8 +85,8 @@
   :versioning {:enabled false}
   :wf-items-ids-gen {:enabled true}
   :theme default-sdc-theme
-  :conversion {:convert-forms-on-start false
-               :convert-doc-on-save false}}
+  :conversion {:convert-forms-on-start {:enabled false}
+               :convert-doc-on-save {:enabled false}}}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
