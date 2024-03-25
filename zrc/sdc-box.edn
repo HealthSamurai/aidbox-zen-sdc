@@ -29,6 +29,7 @@
   :zen/desc "test server"
   :config   config
   :services {:seed-fixtures seed-fixtures
+             :seed-questionnaires seed-questionnaires
              :sdc sdc-service}}
 
  default-sdc-theme
@@ -87,6 +88,11 @@
   :theme default-sdc-theme
   :conversion {:convert-forms-on-start {:enabled false}
                :convert-doc-on-save {:enabled false}}}
+
+ seed-questionnaires
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :files ["resources/questionnaires.ndjson.gz"]}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
