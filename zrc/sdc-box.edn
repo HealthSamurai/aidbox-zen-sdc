@@ -92,7 +92,7 @@
  seed-questionnaires
  {:zen/tags #{aidbox/service}
   :engine aidbox/seed
-  :files ["resources/questionnaires.ndjson.gz"]}
+  :files ["zrc/resources/questionnaires.ndjson.gz"]}
 
  seed-fixtures
  {:zen/tags #{aidbox/service}
