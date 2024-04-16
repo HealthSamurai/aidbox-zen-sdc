@@ -89,11 +89,6 @@
   :conversion {:convert-forms-on-start {:enabled false}
                :convert-doc-on-save {:enabled false}}}
 
- seed-questionnaires
- {:zen/tags #{aidbox/service}
-  :engine aidbox/seed
-  :files ["zrc/resources/questionnaires.ndjson.gz"]}
-
  seed-fixtures
  {:zen/tags #{aidbox/service}
   :engine aidbox/seed
